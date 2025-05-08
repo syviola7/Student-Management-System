@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<style> body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+  }
+  
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #1976d2;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    z-index: 2;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 60px;
+    height: calc(100% - 50px);
+    background-color: #f8f9fa;
+    border-right: 1px solid #ddd;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar ul li {
+    text-align: center;
+    padding: 20px 0;
+    cursor: pointer;
+  }
+  
+  .sidebar ul li i {
+    font-size: 20px;
+    color: #bbb;
+    transition: color 0.3s;
+  }
+  
+  .sidebar ul li.active i {
+    color: #1976d2;
+  }
+  
+  .sidebar ul li:hover i {
+    color: #1976d2;
+  }
+  
+  .content {
+    margin-left: 60px;
+    margin-top: 50px;
+    padding: 20px;
+    flex: 1;
+    background-color: #f1f3f6;
+  }
+  
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .card img {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .card p {
+    margin: 10px 0 5px;
+  }
+  
+  .card h3 {
+    color: green;
+  }
+  
+  .notices {
+    margin-top: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  </style>
+
+<body>
+
+<header class="topbar">
+  <h1>Admin Dashboard</h1>
+</header>
+
+<nav class="sidebar">
+  <ul>
+    <li class="active" onclick="navigateTo('pages/home.html')" title="Home"><i class="fas fa-home"></i></li>
+    <li onclick="navigateTo('pages/students.html')" title="Students"><i class="fas fa-book"></i></li>
+    <li onclick="navigateTo('pages/classes.html')" title="Classes"><i class="fas fa-clipboard-list page-icon"></i><h2>Classes Page</h2>
+    </li>
+    <li onclick="navigateTo('pages/teachers.html')" title="Teachers"><i class="fas fa-user-friends"></i></li>
+    <li onclick="navigateTo('pages/profile.html')" title="Profile"><i class="fas fa-user"></i></li>
+    <li onclick="navigateTo('pages/messages.html')" title="Messages"><i class="fas fa-comment-alt"></i></li>
+    <li onclick="navigateTo('pages/settings.html')" title="Account"><i class="fas fa-user-circle"></i></li>
+    <li onclick="navigateTo('pages/logout.html')" title="Logout"><i class="fas fa-sign-out-alt"></i></li>
+  </ul>
+</nav>
+
+
+
+<main class="content">
+  <div class="cards">
+    <div class="card">
+      <img src="https://img.icons8.com/color/48/000000/student-center.png"/>
+      <p>Total Students</p>
+      <h3>0</h3>
+    </div>
+    <div class="card">
+      <img src="https://img.icons8.com/color/48/000000/classroom.png"/>
+      <p>Total Classes</p>
+      <h3>0</h3>
+    </div>
+    <div class="card">
+      <img src="https://img.icons8.com/color/48/000000/teacher.png"/>
+      <p>Total Teachers</p>
+      <h3>0</h3>
+    </div>
+    <div class="card">
+      <img src="https://img.icons8.com/color/48/000000/money.png"/>
+      <p>Fees Collection</p>
+      <h3>$0</h3>
+    </div>
+  </div>
+
+  <div class="notices">
+    <p>No Notices to Show Right Now</p>
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+
+<script>
+
+function navigateTo(page) {
+  // Remove active class from all
+  document.querySelectorAll('.sidebar ul li').forEach(li => li.classList.remove('active'));
+  // Add active class to clicked
+  event.currentTarget.classList.add('active');
+
+  // Redirect
+  window.location.href = page;
+}
+
+
+</script>
+</html>

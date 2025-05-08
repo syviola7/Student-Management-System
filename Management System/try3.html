@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <script defer src="script.js"></script>
+</head>
+
+<style>
+
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout */
+body {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 15px;
+}
+
+h1 {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 15px;
+  margin: 0;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #1976d2;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  z-index: 1000;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.user-avatar {
+  margin-left: auto;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 60px;
+  background: #fff;
+  border-right: 1px solid #ddd;
+  height: calc(100% - 56px);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li a {
+  display: block;
+  padding: 15px;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+}
+
+.sidebar nav ul li a:hover {
+  background: #eee;
+}
+
+/* Content */
+.content {
+  margin-top: 56px;
+  margin-left: 60px;
+  padding: 1rem;
+  flex-grow: 1;
+  background: #f5f5f5;
+  min-height: calc(100vh - 56px);
+}
+
+.cards {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  flex: 1 1 200px;
+  text-align: center;
+}
+
+.card img {
+  height: 48px;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.card h2 {
+  color: green;
+}
+
+/* Notice */
+.notice {
+  margin-top: 2rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+</style>
+
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <button class="menu-btn">&#9776;</button>
+    <h1>Admin Dashboard</h1>
+    <div class="user-avatar">Y</div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="home.html"><span>🏠</span></a></li>
+        <li><a href="students.html"><span>🗂️</span></a></li>
+        <li><a href="classes.html"><span>📋</span></a></li>
+        <li><a href="teachers.html"><span>👥</span></a></li>
+        <li><a href="#"><span>🔍</span></a></li>
+        <li><a href="messages.html"><span>💬</span></a></li>
+        <li><a href="#"><span>ℹ️</span></a></li>
+        <li><a href="profile.html"><span>👤</span></a></li>
+        <li><a href="#"><span>⏻</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <div class="cards">
+      <div class="card">
+        <img src="https://img.icons8.com/color/48/000000/student-center.png" alt="Students"/>
+        <p>Total Students</p>
+        <h2>0</h2>
+      </div>
+      <div class="card">
+        <img src="https://img.icons8.com/color/48/000000/classroom.png" alt="Classes"/>
+        <p>Total Classes</p>
+        <h2>0</h2>
+      </div>
+      <div class="card">
+        <img src="https://img.icons8.com/emoji/48/000000/woman-teacher.png" alt="Teachers"/>
+        <p>Total Teachers</p>
+        <h2>0</h2>
+      </div>
+      
+    </div>
+
+    <div class="notice">
+      <p>No Notices to Show Right Now</p>
+    </div>
+  </main>
+
+</body>
+
+<script>
+
+// Optional: Toggle sidebar (for mobile-friendly layout if needed)
+document.querySelector('.menu-btn').addEventListener('click', () => {
+  document.querySelector('.sidebar').classList.toggle('open');
+});
+
+</script>
+</html>
