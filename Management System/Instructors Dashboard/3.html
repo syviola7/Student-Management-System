@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+
+        * {
+            color: white;
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Top Header */
+        .top-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 20px 20px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+            display: block;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 150px;
+            background-color: var(--secondary-color);
+            color: white;
+            height: calc(100vh - 60px);
+            position: fixed;
+            left: 0;
+            top: 60px;
+            transition: transform 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding-top: 10px;
+        }
+
+        .sidebar-menu li {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-menu li:hover {
+            background-color: var(--dark-color);
+        }
+
+        .sidebar-menu li i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 160px;
+            margin-top: 60px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+            color: #333;
+            /* Added for better text contrast */
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Attendance Section */
+        .attendance-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .attendance-container h1 {
+            color: var(--secondary-color);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .attendance-container h2 {
+            color: #7f8c8d;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .date-display {
+            font-style: italic;
+            color: var(--primary-color);
+        }
+
+        .attendance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .attendance-table th,
+        .attendance-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+        }
+
+        .attendance-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .attendance-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .attendance-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .note {
+            margin-top: 20px;
+            font-style: italic;
+            color: #7f8c8d;
+            text-align: right;
+        }
+
+        /* Add styles for the Take Attendance Button */
+        .take-attendance-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .take-attendance-btn:hover {
+            background-color: #27ae60;
+        }
+
+        /* Success Message Styles */
+        .success-message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--success-color);
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .attendance-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .attendance-table th,
+            .attendance-table td {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Header with Menu Button -->
+    <div class="top-header">
+        <button class="menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1>Admin Dashboard</h1>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="classes.html"><i class="fas fa-users"></i> Classes</a></li>
+            <li><a href="subjects.html"><i class="fas fa-book"></i> Subjects</a></li>
+            <li><a href="teachers.html"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+            <li><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+            <li><a href="user.html"><i class="fas fa-user"></i> User</a></li>
+            <li><a href="profile.html"><i class="fas fa-cog"></i> Profile</a></li>
+            <li><a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="attendance-container">
+            <h1>Take Attendance <span class="date-display" style="color: #2c3e50; font-size: 24px;">(Today's Date: <span id="currentDate"
+                        style="color: #2c3e50; font-size: 24px;">01-09-2023</span>)</span></h1>
+            <h2>All Students in (BSCS 2A) Class</h2>
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message" style="display: none;">
+                Attendance Taken Successfully!
+            </div>
+            <p class="note">Note: Click on the checkboxes besides each student to take attendance!</p>
+
+
+            <table class="attendance-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Admission No.</th>
+                        <th>Class</th>
+                        <th>Check</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Suharny</td>
+                        <td>Viola</td>
+                        <td>AMS001</td>
+                        <td>BSCS 2A</td>
+                        <td><input type="checkbox" class="attendance-checkbox"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <button id="takeAttendanceBtn" class="take-attendance-btn">Take Attendance</button>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const takeAttendanceBtn = document.getElementById('takeAttendanceBtn');
+        const successMessage = document.getElementById('successMessage');
+
+        // Show success message on button click
+        takeAttendanceBtn.addEventListener('click', function () {
+            successMessage.style.display = 'block'; // Show the message
+            setTimeout(() => {
+                successMessage.style.display = 'none'; // Hide the message after 3 seconds
+            }, 3000);
+        });
+
+        // Set current date
+        function setCurrentDate() {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            document.getElementById('currentDate').textContent = `${day}-${month}-${year}`;
+        }
+
+        setCurrentDate(); // Ensure this is called to display the current date
+    });
+    </script>
+</body>
+
+</html>

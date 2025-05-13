@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +30,17 @@
             background-color: #f5f5f5;
         }
 
+        h1 {
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        h2 {
+            color: #474949;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
         /* Top Header */
         .top-header {
             background-color: var(--secondary-color);
@@ -56,7 +67,7 @@
 
         /* Sidebar Styles */
         .sidebar {
-            width: 150px;
+            width: 200px;
             background-color: var(--secondary-color);
             color: white;
             height: calc(100vh - 60px);
@@ -77,27 +88,84 @@
             padding-top: 10px;
         }
 
-        .sidebar-menu li {
-            padding: 15px 20px;
+        .sidebar-menu > li {
+            padding: 12px 15px;
             cursor: pointer;
             transition: background-color 0.3s;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            position: relative;
         }
 
-        .sidebar-menu li:hover {
+        .sidebar-menu > li:hover {
             background-color: var(--dark-color);
         }
 
         .sidebar-menu li i {
-            margin-right: 10px;
-            width: 20px;
+            margin-right: 8px;
+            width: 18px;
             text-align: center;
+            font-size: 14px;
+        }
+
+        /* Compact Submenu */
+        .submenu {
+            font-size: 15px;
+            list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(0,0,0,0.15);
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu li {
+            padding: 12px 15px 8px 29px;
+            font-size: 15px;
+        }
+
+        .submenu li:hover {
+            background-color: rgba(0,0,0,0.25);
+        }
+
+        .submenu li i {
+            font-size: 10px;
+            margin-right: 6px;
+            width: 14px;
+        }
+
+        .has-submenu {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .has-submenu > a {
+            display: flex;
+            align-items: center;
+        }
+
+        .has-submenu::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 12px;
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .has-submenu.active::after {
+            transform: rotate(180deg);
         }
 
         /* Main Content */
         .main-content {
-            margin-left: 160px;
+            margin-left: 200px;
             margin-top: 60px;
             padding: 20px;
             transition: margin-left 0.3s ease;
@@ -107,7 +175,7 @@
             margin-left: 0;
         }
 
-        /* Dashboard Stats with Icons */
+        /* Dashboard Stats Cards with Icons */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -148,10 +216,6 @@
             background-color: var(--danger-color);
         }
 
-        .icon-teachers {
-            background-color: var(--warning-color);
-        }
-
         .icon-attendance {
             background-color: var(--success-color);
         }
@@ -170,28 +234,6 @@
             color: var(--secondary-color);
         }
 
-        /* Notices Section */
-        .notices-container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .notices-container h2 {
-            margin-bottom: 15px;
-            color: var(--secondary-color);
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-
-        .empty-notice {
-            text-align: center;
-            padding: 30px;
-            color: #95a5a6;
-            font-style: italic;
-        }
-
         /* Responsive Design */
         @media (min-width: 768px) {
             .sidebar {
@@ -203,7 +245,7 @@
             }
             
             .main-content {
-                margin-left: 160px;
+                margin-left: 200px;
             }
             
             .main-content.expanded {
@@ -218,6 +260,18 @@
         }
 
         @media (max-width: 480px) {
+            .sidebar {
+                width: 180px;
+            }
+            
+            .sidebar-menu > li {
+                padding: 10px 12px;
+            }
+            
+            .submenu li {
+                padding: 6px 12px 6px 35px;
+            }
+            
             .stats-container {
                 grid-template-columns: 1fr;
             }
@@ -230,67 +284,39 @@
         <button class="menu-btn" id="menuBtn">
             <i class="fas fa-bars"></i>
         </button>
-        <h1>Admin Dashboard</h1>
+        <h1>Dashboard</h1>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <ul class="sidebar-menu">
-            <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="classes.html"><i class="fas fa-users"></i> Classes</a></li>
-            <li><a href="teachers.html"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+            <li><a href="instructordash.html"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
+            
+            <li class="has-submenu" id="attendanceMenu">
+                <a href="#"><i class="fas fa-users"></i> Attendance</a>
+                <ul class="submenu">
+                    <li><a href="takeattendance.html" style="font-size: 12px;"><i class="fas fa-clipboard-check"></i> Take Attendance</a></li>
+                    <li><a href="#" style="font-size: 12px;"><i class="fas fa-list"></i>View Class Attendance</a></li>
+                    <li><a href="#" style="font-size: 12px;"><i class="fas fa-user-check"></i>View Student Attendance</a></li>
+                    <li><a href="#" style="font-size: 12px;"><i class="fas fa-file-excel"></i> Today's Report</a></li>
+                </ul>
+            </li>
+            
             <li><a href="profile.html"><i class="fas fa-cog"></i> Profile</a></li>
             <li><a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>
 
     <!-- Main Content -->
-    <div class="main-content" id="mainContent">
-        <!-- Stats Cards with Icons -->
-        <div class="stats-container">
-            <!-- Students Card -->
-            <div class="stat-card">
-                <div class="stat-icon icon-students">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
-                <div class="stat-title">Students</div>
-                <div class="stat-value">0</div>
-            </div>
-            
-            <!-- Classes Card -->
-            <div class="stat-card">
-                <div class="stat-icon icon-classes">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="stat-title">Classes</div>
-                <div class="stat-value">0</div>
-            </div>
-            
-            <!-- Teachers Card -->
-            <div class="stat-card">
-                <div class="stat-icon icon-teachers">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <div class="stat-title">Teachers</div>
-                <div class="stat-value">0</div>
-            </div>
-        </div>
-
-        <!-- Notices Section -->
-        <div class="notices-container">
-            <h2>Notices</h2>
-            <div class="empty-notice">
-                <p>No Notices to Show Right Now</p>
-            </div>
-        </div>
-    </div>
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const menuBtn = document.getElementById('menuBtn');
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
+            const attendanceMenu = document.getElementById('attendanceMenu');
             
             // Set initial state based on screen size
             function setInitialState() {
@@ -303,19 +329,42 @@
                 }
             }
             
-            // Call initially
             setInitialState();
             
-            // Toggle sidebar on menu button click
+            // Toggle sidebar
             menuBtn.addEventListener('click', function() {
                 sidebar.classList.toggle('collapsed');
                 mainContent.classList.toggle('expanded');
             });
 
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                setInitialState();
+            // Toggle attendance submenu
+            attendanceMenu.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' && e.target.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    this.classList.toggle('active');
+                    this.querySelector('.submenu').classList.toggle('active');
+                    
+                    // Close other open submenus if any
+                    document.querySelectorAll('.has-submenu').forEach(menu => {
+                        if (menu !== this && menu.classList.contains('active')) {
+                            menu.classList.remove('active');
+                            menu.querySelector('.submenu').classList.remove('active');
+                        }
+                    });
+                }
             });
+
+            // Close submenus when clicking elsewhere
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.has-submenu')) {
+                    document.querySelectorAll('.submenu.active').forEach(submenu => {
+                        submenu.classList.remove('active');
+                        submenu.parentElement.classList.remove('active');
+                    });
+                }
+            });
+
+            window.addEventListener('resize', setInitialState);
         });
     </script>
 </body>

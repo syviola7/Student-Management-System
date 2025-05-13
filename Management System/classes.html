@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
+  <title>Classes</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     :root {
@@ -96,7 +96,7 @@
 
     /* Main Content */
     .main-content {
-      margin-left: 150px;
+      margin-left: 170px;
       margin-top: 60px;
       padding: 20px;
       transition: margin-left 0.3s ease;
@@ -321,12 +321,8 @@
     <ul class="sidebar-menu">
       <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
       <li><a href="classes.html" class="active"><i class="fas fa-users"></i> Classes</a></li>
-      <li><a href="subjects.html"><i class="fas fa-book"></i> Subjects</a></li>
       <li><a href="teachers.html"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
       <li><a href="students.html"><i class="fas fa-user-graduate"></i> Students</a></li>
-      <li><a href="notices.html"><i class="fas fa-bell"></i> Notices</a></li>
-      <li><a href="complains.html"><i class="fas fa-exclamation-circle"></i> Complains</a></li>
-      <li><a href="user.html"><i class="fas fa-user"></i> User</a></li>
       <li><a href="profile.html"><i class="fas fa-cog"></i> Profile</a></li>
       <li><a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>
@@ -354,23 +350,6 @@
       <!-- All Classes Table -->
       <div class="table-section">
         <h2>All Classes</h2>
-
-        <div class="table-controls">
-          <div>
-            <span>Show</span>
-            <select class="entries-select">
-              <option>10</option>
-              <option>25</option>
-              <option>50</option>
-              <option>100</option>
-            </select>
-            <span>entries</span>
-          </div>
-          <div>
-            <span>Search:</span>
-            <input type="text" class="search-input">
-          </div>
-        </div>
 
         <div class="table-container">
           <table id="classesTable">
